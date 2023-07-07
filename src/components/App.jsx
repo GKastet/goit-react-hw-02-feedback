@@ -1,16 +1,76 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
-  );
-};
+import { Component } from 'react';
+import Buttons from './Buttons/Buttons';
+import Notification from './Notification/Notification';
+import Statistics from './Statistics/Statistics';
+
+export class App extends Component {
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
+
+  onGoodBtnClick = () => {
+    this.setState(prevState => {
+      return {
+        good: prevState.good + 1,
+      };
+    });
+  };
+
+  onNeutralBtnClick = () => {
+    this.setState(prevState => {
+      return {
+        neutral: prevState.neutral + 1,
+      };
+    });
+  };
+
+  onBadBtnClick = () => {
+    this.setState(prevState => {
+      return {
+        bad: prevState.bad + 1,
+      };
+    });
+  };
+
+  countTotalFeedback = () => {
+    const total = this.state.good + this.state.neutral + this.state.bad;
+    return total;
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    const positive = (this.state.good * 100) / this.countTotalFeedback();
+    return positive;
+  };
+
+  render() {
+    // console.log(this.countTotalFeedback()>0?'Yes':'No');
+    return (
+      <>
+        <Buttons
+          good={this.state.good}
+          neutral={this.state.neutral}
+          bad={this.state.bad}
+          onGoodBtnClick={this.onGoodBtnClick}
+          onNeutralBtnClick={this.onNeutralBtnClick}
+          onBadBtnClick={this.onBadBtnClick}
+          />            
+          
+          {this.countTotalFeedback() > 0 ? (
+            <Statistics
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+              total={this.countTotalFeedback}
+              positivePercentage={
+                this.countPositiveFeedbackPercentage
+              }
+            />
+          ) : (
+            <Notification message="There is no feedback" />
+          )}          
+      </>
+    );
+  }
+}
