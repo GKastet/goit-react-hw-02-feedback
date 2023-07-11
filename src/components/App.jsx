@@ -10,30 +10,15 @@ export class App extends Component {
     bad: 0,
   };
 
-  onGoodBtnClick = () => {
+  onBtnClick = (evt) => {    
+    const currentName = evt.target.name;    
     this.setState(prevState => {
       return {
-        good: prevState.good + 1,
+        [currentName]: prevState[currentName] + 1,
       };
-    });
-  };
-
-  onNeutralBtnClick = () => {
-    this.setState(prevState => {
-      return {
-        neutral: prevState.neutral + 1,
-      };
-    });
-  };
-
-  onBadBtnClick = () => {
-    this.setState(prevState => {
-      return {
-        bad: prevState.bad + 1,
-      };
-    });
-  };
-
+    });    
+  }
+  
   countTotalFeedback = () => {
     const total = this.state.good + this.state.neutral + this.state.bad;
     return total;
@@ -45,20 +30,15 @@ export class App extends Component {
   };
 
   render() {
-    // console.log(this.countTotalFeedback()>0?'Yes':'No');
     return (
       <>
         <Buttons
-          good={this.state.good}
-          neutral={this.state.neutral}
-          bad={this.state.bad}
-          onGoodBtnClick={this.onGoodBtnClick}
-          onNeutralBtnClick={this.onNeutralBtnClick}
-          onBadBtnClick={this.onBadBtnClick}
+          onBtnClick={this.onBtnClick}                            
           />            
           
           {this.countTotalFeedback() > 0 ? (
             <Statistics
+              
               good={this.state.good}
               neutral={this.state.neutral}
               bad={this.state.bad}
