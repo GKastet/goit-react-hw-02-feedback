@@ -30,10 +30,12 @@ export class App extends Component {
   };
 
   render() {
+    const btnKeys = Object.keys(this.state);
     return (
       <>
         <Buttons
-          onBtnClick={this.onBtnClick}                            
+          onBtnClick={this.onBtnClick}
+          btnKeys={btnKeys}                            
           />            
           
           {this.countTotalFeedback() > 0 ? (

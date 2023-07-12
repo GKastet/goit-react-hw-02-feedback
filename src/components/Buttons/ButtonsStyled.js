@@ -16,13 +16,14 @@ export const Section = styled.section`
         justify-content: center;
         align-items: center;
         gap: 20px;
-        margin: 20px 0;
+        margin: 20px 0;        
     }
     button{
         width: 100px;
         padding: 10px;
         border-radius: 8px;
         font-size: 16px;
+        text-transform: capitalize;
         background-color: lightyellow;
         transition: background-color 250ms linear;
         &:hover{
